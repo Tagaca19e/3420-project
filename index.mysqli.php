@@ -12,6 +12,13 @@ require_once("config.php");
 <body>
 <h1><?= $PROJECT_NAME?></h1>
 
+<div class="tradespace__wrapper">
+    <div class="tradespace__message-wrapper">
+    </div>
+    <div class="tradespace__listing-wrapper">
+    </div>
+</div>
+
 <?php
 if (!empty($_SESSION["affected_rows"])) {
     echo "Deleted " . $_SESSION["affected_rows"] . " rows";
