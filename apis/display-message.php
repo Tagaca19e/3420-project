@@ -1,6 +1,4 @@
 <?php
-require_once("../snippets/get-mysqli-connection.php");
-
 if (isset($_POST["logged_in"]) && isset($_POST["to_display"])) {
     $user_logged_in_id = $_POST["logged_in"];
     $user_id_to_display = $_POST["to_display"];
@@ -9,6 +7,7 @@ if (isset($_POST["logged_in"]) && isset($_POST["to_display"])) {
     return;
 }
 
+require_once("../snippets/get-mysqli-connection.php");
 $db = get_mysqli_connection();
 
 // TODO(etagaca): Connect logged in session from Danny's logged in feature.
@@ -71,6 +70,13 @@ foreach ($user_messages as $idx => $receiver_messages) {
 }
 
 include '../snippets/get-username-by-id.php';
+
+// Display where the message is to/from.
+echo "<p 
+        class='tradespace__message-header'
+      >To. " 
+      . get_username_by_id($user_id_to_display) . 
+      "</p>";
 
 function display_message($user_messages) {
     foreach ($user_messages as $message) {

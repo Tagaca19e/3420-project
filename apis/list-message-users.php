@@ -1,9 +1,14 @@
 <?php
-$db = get_mysqli_connection();
+if (isset($_POST["user_id"])) {
+    $user_logged_in_id = $_POST["user_id"];
+} else {
+    echo "No data provided.";
+    return;
+}
 
-// TODO(etagaca): Connect logged in session from Danny's logged in feature.
-// Test for who is currently logged in.
-$user_logged_in_id = 3;
+require_once("../snippets/get-mysqli-connection.php");
+
+$db = get_mysqli_connection();
 
 // Get all messages that user has sent.
 $query = $db->prepare("SELECT * FROM Messages WHERE senderID = $user_logged_in_id");
@@ -24,13 +29,11 @@ foreach ($rows as $row) {
 
 include '../snippets/get-username-by-id.php';
 
-foreach ($messaged_user_ids as $user_id => $value) {
+// Display list of messaged users from recent to oldest.
+foreach (array_reverse($messaged_user_ids, true) as $user_id => $value) {
     echo "<div
             class='list-item__user'
             data-key='$user_id'>" 
             . get_username_by_id($user_id) . "</div>";
 }
 ?>
-
-<!-- Load api to display messages -->
-<script src="../assets/message.js"></script>
