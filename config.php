@@ -30,7 +30,7 @@ function get_mysqli_connection() {
     if (!isset($connection)) {
         $connection = mysqli_connect(
             'localhost', // the server address (don't change)
-            'etagaca', // the MariaDB username
+            'etagaca',   // the MariaDB username
             'Vuh9`Bipf', // the MariaDB username's password
             'tradespace' // the MariaDB database name
         ) or die(mysqli_connect_error());
