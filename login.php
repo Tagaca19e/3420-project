@@ -3,7 +3,7 @@ require_once("config.php");
 
 function get_user_listings($username){
 	$db = get_pdo_connection();
-	$query = $db->prepare("Select * FROM Listing natural join User where username = ? ");
+	$query = $db->prepare("SELECT Listing.* FROM Listing NATURAL JOIN User WHERE username = ? ");
 	$query->bindParam(1, $username, PDO::PARAM_STR);
 	$query->execute();
 	$results = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -20,15 +20,15 @@ if (isset($_POST["Login"])){
     }
     else {
 		$db = get_pdo_connection();
-		$query = $db->prepare("SELECT password from User where username = ?");
+		$query = $db->prepare("SELECT Password from User where username = ?");
 		$query->bindParam(1, $login_username, PDO::PARAM_STR);
 		$query->execute();
 		$results = $query->fetchAll(PDO::FETCH_ASSOC);
 		
 		if (count($results) > 0){
-			$hash = $results[0]["password"];
+			$hash = $results[0]["Password"];
 			
-			if($hash == $login_password){
+			if(password_verify($login_password, $hash)){
 				$_SESSION["logged_in"]=true;
 				$_SESSION["username"]=$login_username;
 				
@@ -36,7 +36,7 @@ if (isset($_POST["Login"])){
 				
 				if (count($listing)>0){
 					$_SESSION["has_listing"] = true;
-					$_SESSION["user_listing"] = $listing;
+					$_SESSION["user_listing"] = $listing[0];
 				}
 				else {
 					$_SESSION["has_listing"] = false;
