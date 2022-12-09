@@ -6,7 +6,9 @@ body {
   padding: 0 10px
 }
 
-h1,h2,h3 {
+h1,
+h2,
+h3 {
   line-height: 1.2
 }
 
@@ -14,7 +16,8 @@ h1 {
   text-align: center;
 }
 
-.tradespace__message-wrapper, .tradespace__listing-wrapper{
+.tradespace__message-wrapper, 
+.tradespace__listing-wrapper{
   border: 1px solid black;
   height: 100%;
   overflow: scroll;

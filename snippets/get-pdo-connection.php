@@ -13,7 +13,7 @@ function get_pdo_connection() {
             $conn = new PDO(
                 "mysql:host=localhost;dbname=tradespace",  // change dbname
                 "etagaca",                                 // change username
-                "Vuh9`Bipf",                                // change password
+                "Vuh9`Bipf",                               // change password
                 $options
             );
         }

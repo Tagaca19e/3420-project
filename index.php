@@ -13,14 +13,13 @@ require_once("config.php");
 <h1><?= $PROJECT_NAME?></h1>
 
 <?php
-
 if (isset($_SESSION["logged_in"])) {
     require_once("dashboard.php");
 } else {
     require_once("login.php");
 }
-?>
 
-Two different user groups
-- Must support CRUD operations
-- Must support report generation
+// TODO(etagaca): Support two different user groups.
+// - Must support CRUD operations
+// - Must support report generation
+?>
