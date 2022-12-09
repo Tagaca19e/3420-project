@@ -7,11 +7,19 @@ require_once("config.php");
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?= $PROJECT_NAME ?></title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
 <h1><?= $PROJECT_NAME?></h1>
-<ul>
-    <li><a href="index.mysqli.php">Examples with mysqli</a></li>
-    <li><a href="index.pdo.php">Examples with PDO</a></li>
-</ul>
+
+<?php
+if (isset($_SESSION["logged_in"])) {
+    require_once("dashboard.php");
+} else {
+    require_once("login.php");
+}
+
+// TODO(etagaca): Support two different user groups.
+// - Must support CRUD operations
+// - Must support report generation
+?>

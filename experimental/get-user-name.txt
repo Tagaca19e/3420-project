@@ -1,0 +1,12 @@
+DELIMITER //
+CREATE PROCEDURE getUserNameById (
+  id int(11)
+)
+BEGIN
+  SELECT username
+  FROM User 
+  WHERE userId = id;
+END
+//
+
+DELIMITER ;

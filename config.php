@@ -30,7 +30,7 @@ function get_mysqli_connection() {
     if (!isset($connection)) {
         $connection = mysqli_connect(
             'localhost', // the server address (don't change)
-            'etagaca', // the MariaDB username
+            'etagaca',   // the MariaDB username
             'Vuh9`Bipf', // the MariaDB username's password
             'tradespace' // the MariaDB database name
         ) or die(mysqli_connect_error());
@@ -77,9 +77,9 @@ function get_pdo_connection() {
 
 // This includes a form builder PHP class that lets you generate HTML forms
 // from PHP. See the repo here: https://github.com/joshcanhelp/php-form-builder
-require_once("FormBuilder.php");
+// require_once("./assets/FormBuilder.php");
 
 // This includes a function called makeTable that accepts a PHP array of 
 // objects and returns a string of the array contents as an HTML table
-require_once("tablemaker.php");
+// require_once("./assets/tablemaker.php");
 ?>
