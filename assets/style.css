@@ -1,9 +1,8 @@
 body {
-  margin: 40px auto;
-  max-width: 2100px;
-  line-height:1.6;
-  font-size: 18px;
   color: #444;
+  font-size: 18px;
+  line-height:1.6;
+  margin: 40px auto;
   padding: 0 10px
 }
 
@@ -16,20 +15,38 @@ h1 {
 }
 
 .tradespace__message-wrapper, .tradespace__listing-wrapper{
-  height: 100%;
   border: 1px solid black;
+  height: 100%;
   overflow: scroll;
 }
 
-.tradespace__wrapper {
-  width: 100%;
+.tradespace__listing-wrapper {
   display: flex;
-  height: 700px;
+  flex-wrap: wrap;
+}
+
+.list-item__listing {
+  border: 1px solid;
+  margin-bottom: 15px;
+  margin-right: 15px;
+  padding: 10px;
+  width: 45%;
+}
+
+.list-item__listing > img {
+  width: 100%;
+}
+
+.tradespace__wrapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
 }
 
 .tradespace__message-wrapper {
-  width: 45%;
   display: flex;
+  height: fit-content;
+  width: 40%;
 }
 
 .list-item__user {
@@ -42,8 +59,8 @@ h1 {
 }
 
 .tradespace__messages {
-  width: 75%;
   border-left: 1px solid gray;
+  width: 75%;
 }
 
 .tradespace__messages > input {

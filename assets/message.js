@@ -6,7 +6,7 @@ var LOGGEDIN = 3;
 function displayUserMessage(toDisplay) {
   $.ajax({
     type: "POST",
-    url: './apis/display-message.php',
+    url: '../apis/display-message.php',
     data: {
       logged_in: LOGGEDIN,
       to_display: toDisplay
@@ -24,15 +24,13 @@ function displayUserMessage(toDisplay) {
 function sendMessage(senderId, receiverId, textMessage) {
   $.ajax({
     type: "POST",
-    url: './apis/send-message.php',
+    url: '../apis/send-message.php',
     data: {
       sender_id: senderId,
       receiver_id: receiverId,
       message: textMessage
     },
     success: function(data) {
-      console.log('success');
-      console.log(data);
       // Update messages container.
       displayUserMessage(receiverId);
     },

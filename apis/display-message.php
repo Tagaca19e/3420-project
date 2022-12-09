@@ -1,5 +1,5 @@
 <?php
-require_once("../config.php");
+require_once("../snippets/get-mysqli-connection.php");
 
 if (isset($_POST["logged_in"]) && isset($_POST["to_display"])) {
     $user_logged_in_id = $_POST["logged_in"];
