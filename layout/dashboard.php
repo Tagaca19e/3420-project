@@ -2,6 +2,7 @@
 session_start();
 require_once("../snippets/get-mysqli-connection.php");
 require_once("../snippets/data-encoder.php");
+require_once("../snippets/get-user-rating.php");
 ?>
 
 <html>
@@ -22,12 +23,16 @@ require_once("../snippets/data-encoder.php");
             </ul>
         </div>
 
-        <?php
-        echo "session user id: " . $_SESSION["user_id"];
-        ?>
-
         <!-- TODO(etagaca): Change names for classes. -->
         <div class="tradespace__wrapper">
+            <div class="tradespace__user-profile">
+                <h3><?= get_user_rating($_SESSION["user_id"]) ?></h3>
+                <h4><?= $_SESSION["username"] ?></h4>
+            </div>
+
+            <!-- List of listings -->
+            <div class="tradespace__listing-wrapper"></div>
+
             <div class="tradespace__message-wrapper">
                 <!-- List of messaged users -->
                 <div class="tradespace__message-list"></div>
@@ -42,9 +47,6 @@ require_once("../snippets/data-encoder.php");
                     >
                 </div>
             </div>
-
-            <!-- List of listings -->
-            <div class="tradespace__listing-wrapper"></div>
         </div>
 
         <!-- Load apis -->
