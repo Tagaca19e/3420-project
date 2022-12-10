@@ -5,7 +5,7 @@ echo "<div class='list-item__listing'>
           >
           <p 
               class='list-item__listing-user'
-              data-key='$userId'  
+              data-key='$user_id'  
           >
           $username ($userRating)</p>
           <p>$city, $state</p>
