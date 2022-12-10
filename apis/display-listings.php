@@ -15,7 +15,7 @@ foreach ($rows as $row) {
     if (empty($row["endDate"])) {
         $userId = $row["userId"];
         $username = $row["username"];
-        $userRating = (empty($row["userRating"]) ? 0 : $row["userRating"]);
+        $user_rating = (empty($row["userRating"]) ? 0 : $row["userRating"]);
         $city = $row["city"];
         $state = $row["state"];
         $condition = $row["bookCondition"];

@@ -33,7 +33,7 @@ h1 {
 }
 
 .tradespace__message-wrapper, 
-.tradespace__listing-wrapper{
+.tradespace__listing-wrapper {
   height: 100%;
   overflow: scroll;
 }
@@ -45,6 +45,23 @@ h1 {
   margin: 10px 15px;
   padding: 10px;
   max-width: 540px;
+}
+
+.list-item__listing-info.hidden {
+  display: none;
+}
+
+.list-item__listing-info--edit {
+  display: none;
+}
+
+.list-item__listing-info--edit > .listing-edit > textarea {
+  min-height: 100px;
+  width: 100%;
+}
+
+.list-item__listing-info--edit.visible {
+  display: block;
 }
 
 .list-item__listing > img {

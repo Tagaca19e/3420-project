@@ -1,4 +1,3 @@
-
 <?php
 if (isset($_POST["sender_id"]) && isset($_POST["receiver_id"]) && isset($_POST["message"])) {
     $sender_id = $_POST["sender_id"];

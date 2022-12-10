@@ -1,13 +1,13 @@
 // TODO(etagaca): Get logged in user id by session.
 // Constant user id for test purposes.
 // ======== TEST ONLY ======== 
-var LOGGEDIN = 10;
+var LOGGEDIN = 17;
 // ===========================
 
 /**
  * Displays user message history between logged in user and another user.
- * @param {*} userId - User id of logged in user.
- * @param {*} toDisplay - User id of messaged user.
+ * @param {number} userId - User id of logged in user.
+ * @param {number} toDisplay - User id of messaged user.
  */
 function displayUserMessage(userId, toDisplay) {
   $.ajax({
@@ -101,7 +101,7 @@ function displayListings() {
 
 /**
  * Displays all listings available that are listed by user.
- * @param {number} - User id of logged in user.
+ * @param {number} userId - User id of logged in user.
  * @returns {object} - Promise whether listings were displayed.
  */
 function displayUserListings(userId) {
@@ -114,6 +114,51 @@ function displayUserListings(userId) {
       },
       success: function(data) {
         $('.tradespace__listing-wrapper').html(data);
+        resolve();
+      },
+      error: function(xhr, status, error) {
+        reject(xhr);
+      }
+    });
+  });
+}
+
+/**
+ * Updates listings with new info.
+ * @param {object} - Object that represents new changes of listing.
+ * @returns {object} - Promise whether listing was successfully updated or not.
+ */
+function updateListing(updateData) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: "POST",
+      url: '../apis/update-listing.php',
+      data: updateData,
+      success: function(data) {
+        resolve();
+      },
+      error: function(xhr, status, error) {
+        reject(xhr);
+      }
+    });
+  });
+}
+
+/**
+ * Deletes listing given a listing id.
+ * @param {number} listingId - id of the listing. 
+ * @returns {object} - Promise whether listing was successfully deleted or not.
+ */
+function deleteListing(listingId) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: "POST",
+      url: '../apis/delete-listing.php',
+      data: {
+        listing_id: listingId
+      },
+      success: function(data) {
+        console.log(data);
         resolve();
       },
       error: function(xhr, status, error) {
@@ -176,11 +221,45 @@ $(document).ready(function () {
    * --------------------------------------------------------------------------
    */
 
+  // View user owned active listings.
   $('.nav__item[data-key="my-listings"]').click(function () {
     displayUserListings(LOGGEDIN);
   });
 
+  // View all listings.
   $('.nav__item[data-key="all-listings"]').click(function () {
     displayListings();
+  });
+
+  // Edit info about listing.
+  $('.tradespace__listing-wrapper').on('click', '.list-item__listing > button',
+    function () {
+      var listingId = $(this).attr('data-key');
+      
+      $(`.listing--${listingId}`).addClass('hidden');
+      $(`.listing-edit--${listingId}`).addClass('visible');
+  });
+
+  // Submit listing changes.
+  $('.tradespace__listing-wrapper').on('submit', 'form[class="listing-edit"]', 
+    function (event) {
+      event.preventDefault();
+      // Get data from edit form.
+      const formData = new FormData($(this)[0]);
+
+      var data = {};
+      // Convert formData to a JSON object.
+      formData.forEach((value, key) => data[key] = value);
+
+      data.user_id = LOGGEDIN;
+      updateListing(data).then(function () {
+        displayUserListings(LOGGEDIN);
+      });
+  });
+
+  $('.tradespace__listing-wrapper').on('click', '.listing-edit__delete', 
+    function () {
+      deleteListing($(this).attr('data-key'));
+      displayUserListings(LOGGEDIN);
   });
 });

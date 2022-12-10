@@ -26,17 +26,18 @@ if (empty($rows)) {
     foreach ($rows as $row) {
         // Show only user listings that are active.    
         if (empty($row["endDate"])) {
-            $userId = $row["userId"];
+            $user_id = $row["userId"];
             $username = $row["username"];
-            $userRating = (empty($row["userRating"]) ? 0 : $row["userRating"]);
+            $user_rating = (empty($row["userRating"]) ? 0 : $row["userRating"]);
             $city = $row["city"];
             $state = $row["state"];
             $condition = $row["bookCondition"];
             $price = $row["price"];
             $description = $row["description"];
+            $listing_id = $row["listingId"];
             
             // Render each listing with item-listing template.
-            include "../snippets/item-listing.php";
+            include "../snippets/item-listing-edit.php";
         }
     }
 }
