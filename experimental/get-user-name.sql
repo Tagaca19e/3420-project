@@ -72,7 +72,7 @@ DELIMITER ;
 
 INSERT INTO Listing SET userId = 17, description = 'Book about ruby', quantity = 1, city = 'Los Angeles', state = 'California', startDate = '2022-12-09';
 
-INSERT INTO Book SET listingId = 12, userId = 17, bookCondition = 'New', price = 10.99;
+INSERT INTO Book SET listingId = 13, userId = 17, bookCondition = 'New', price = 10.99;
 
 CREATE VIEW UserListingsInfo AS
 SELECT *

@@ -1,7 +1,7 @@
 // TODO(etagaca): Get logged in user id by session.
 // Constant user id for test purposes.
 // ======== TEST ONLY ======== 
-var LOGGEDIN = 17;
+var LOGGEDIN = $('body').attr('data-key');
 // ===========================
 
 /**

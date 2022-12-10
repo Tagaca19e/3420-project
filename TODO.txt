@@ -2,12 +2,17 @@
 
 
 2. Create dashboard for listings.
-  - Viewing user listings
+  - Viewing user listings [done]
   - Creating listings
-  - Deleting listings
-  - Editing listings
+  - Deleting listings [done] 
+  - Editing listings [done]
+
+4. Login connection
+- Normal user
+- Admin
 
 3. User settings
+
 
 3. Connect logged in user for messagess.
 4. Enable edit delete or creating of listing.
