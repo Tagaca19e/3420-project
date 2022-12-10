@@ -135,6 +135,7 @@ function updateListing(updateData) {
       url: '../apis/update-listing.php',
       data: updateData,
       success: function(data) {
+        console.log("success", data);
         resolve();
       },
       error: function(xhr, status, error) {
@@ -158,7 +159,6 @@ function deleteListing(listingId) {
         listing_id: listingId
       },
       success: function(data) {
-        console.log(data);
         resolve();
       },
       error: function(xhr, status, error) {

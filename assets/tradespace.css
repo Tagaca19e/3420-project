@@ -2,14 +2,15 @@ body {
   color: #444;
   font-size: 18px;
   line-height:1.6;
-  margin: 40px auto;
   overflow: hidden;
   padding: 0 10px;
 }
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
+  font-weight: 400;
   line-height: 1.2
 }
 
@@ -32,19 +33,33 @@ h1 {
   min-width: 80px;
 }
 
+.list-item__listing, 
+.tradespace__message-wrapper, 
+.tradespace__user-profile {
+  background: #ffffff;
+}
+
+
 .tradespace__message-wrapper, 
 .tradespace__listing-wrapper {
   height: 100%;
   overflow: scroll;
 }
 
+.list-item__listing,
+.tradespace__message-wrapper, 
+.tradespace__messages, 
+.tradespace__user-profile {
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+}
+
 .list-item__listing {
-  border: 1px solid;
   height: fit-content;
-  margin-bottom: 15px;
   margin: 10px 15px;
-  padding: 10px;
+  margin-bottom: 15px;
   max-width: 540px;
+  padding: 10px;
 }
 
 .list-item__listing-info.hidden {
@@ -69,14 +84,24 @@ h1 {
 }
 
 .tradespace__wrapper {
+  background: #f3f2ef;
   display: flex;
   height: 100%;
   justify-content: center;
   width: 100%;
 }
 
+.tradespace__user-profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  justify-content: center;
+  margin: 10px;
+  width: 225px;
+}
+
 .tradespace__message-wrapper {
-  border: 1px solid gray;
   display: flex;
   height: fit-content;
   margin: 10px 15px;
@@ -93,7 +118,6 @@ h1 {
 }
 
 .tradespace__messages {
-  border-left: 1px solid gray;
   width: 400px;
 }
 

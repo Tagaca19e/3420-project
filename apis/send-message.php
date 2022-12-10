@@ -1,6 +1,9 @@
 <?php
+session_start();
+include "../snippets/data-encoder.php";
+
 if (isset($_POST["sender_id"]) && isset($_POST["receiver_id"]) && isset($_POST["message"])) {
-    $sender_id = $_POST["sender_id"];
+    $sender_id = decode($_POST["sender_id"]);
     $receiver_id = $_POST["receiver_id"];
     $message = $_POST["message"];
 } else {
