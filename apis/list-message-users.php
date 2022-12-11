@@ -1,6 +1,15 @@
 <?php
+session_start();
+include "../snippets/data-encoder.php";
+
 if (isset($_POST["user_id"])) {
-    $user_logged_in_id = $_POST["user_id"];
+    $user_logged_in_id = decode($_POST["user_id"]);
+
+    // Check for user logged in validity.
+    if ($user_logged_in_id != $_SESSION["user_id"]) {
+        echo "Error invalid request.";
+        return;
+    }
 } else {
     echo "No data provided.";
     return;

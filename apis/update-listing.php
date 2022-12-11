@@ -1,8 +1,11 @@
 <?php
+session_start();
+include "../snippets/data-encoder.php";
+
 if (isset($_POST["city"]) && isset($_POST["state"]) 
     && isset($_POST["condition"]) && isset($_POST["price"]) 
     && isset($_POST["description"])) {
-    $user_id = $_POST["user_id"];
+    $user_id = decode($_POST["user_id"]);
     $listing_id = $_POST["listing_id"];
     $city = $_POST["city"];
     $state = $_POST["state"];

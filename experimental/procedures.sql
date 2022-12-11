@@ -67,12 +67,71 @@ END
 
 DELIMITER ;
 
+-- ===========================================================================
+
+DELIMITER //
+CREATE PROCEDURE createListing (
+  user_id int,
+  city varchar(200),
+  state varchar(200),
+  book_condition varchar(200),
+  price float,
+  description varchar(200),
+  start_date date,
+  quantity int,
+  photo_source varchar(200)
+)
+BEGIN
+  SET FOREIGN_KEY_CHECKS = 0;
+
+  CREATE TEMPORARY TABLE currentListingId (
+    listingId int
+  );
+
+  INSERT INTO Listing 
+  SET userId = user_id,
+      city = city,
+      state = state,
+      quantity = quantity,
+      description = description,
+      startDate = start_date;
+  
+  INSERT INTO currentListingId
+  SELECT AUTO_INCREMENT - 1 as listingId
+  FROM information_schema.TABLES
+  WHERE TABLE_SCHEMA = "tradespace"
+  AND TABLE_NAME = "Listing";
+
+  SET @listing_id = (SELECT SUM(listingId) FROM currentListingId);
+
+  INSERT INTO Book
+  SET listingId = @listing_id,
+      userId = user_id,
+      bookCondition = book_condition,
+      price = price;
+
+  INSERT INTO Photos
+  SET listingId = @listing_id,
+      userId = user_id,
+      photoSource = photo_source;
+
+  SET FOREIGN_KEY_CHECKS = 1;
+  DROP TABLE currentListingId;
+END
+//
+
+DELIMITER ;
+
+-- https://upcdn.io/FW25az3/raw/uploads/2022/12/11/s-l500-6UsJ.jpg
+CALL createListing(17, 'Seattle', 'Washington', 'Used', 32.99, 'Used but great for ruby on rails!', '2022-12-10', 1, 'https://upcdn.io/FW25az3/raw/uploads/2022/12/11/s-l500-6UsJ.jpg');
+
+-- ===========================================================================
 
 -- Test insert to listings and books.
 
 INSERT INTO Listing SET userId = 17, description = 'Book about ruby', quantity = 1, city = 'Los Angeles', state = 'California', startDate = '2022-12-09';
 
-INSERT INTO Book SET listingId = 12, userId = 17, bookCondition = 'New', price = 10.99;
+INSERT INTO Book SET listingId = 13, userId = 17, bookCondition = 'New', price = 10.99;
 
 CREATE VIEW UserListingsInfo AS
 SELECT *
@@ -111,10 +170,12 @@ SELECT u.username,
        l.startDate,
        l.endDate,
        b.bookCondition,
-       b.price
+       b.price,
+       p.photoSource
 FROM User as u
 INNER JOIN  Listing as l ON u.userId = l.userId
-INNER JOIN Book as b ON l.listingId = b.listingId;
+INNER JOIN Book as b ON l.listingId = b.listingId
+INNER JOIN Photos as p ON b.listingId = p.listingId
 
 -- CREATE VIEW UserListingsInfo AS
 -- SELECT *

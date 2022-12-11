@@ -1,17 +1,23 @@
-1. Enable users to click on username on listing and message them. [done]
+Enable users to click on username on listing and message them. [done]
 
-
-2. Create dashboard for listings.
-  - Viewing user listings
+Create dashboard for listings.
+  - Viewing user listings [done]
   - Creating listings
-  - Deleting listings
-  - Editing listings
+  - Deleting listings [done] 
+  - Editing listings [done]
 
-3. User settings
+Login connection
+- Normal user [done]
+- Admin
 
-3. Connect logged in user for messagess.
-4. Enable edit delete or creating of listing.
+Security:
+  - api security with SESSIONS
 
+Create admin dashboard
 
-5. Create admin dashboard.
-6. Enable report generation.
+Enable report generation
+
+Database security
+
+User settings
+

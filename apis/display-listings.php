@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Check for logged in user.
+if (!isset($_SESSION["user_id"])) {
+    return;
+}
+
 // Use PDO since we cannot access Table Views in sql with mysqli.
 require_once("../snippets/get-pdo-connection.php");
 
@@ -13,7 +20,7 @@ $rows = $query->fetchAll(PDO::FETCH_ASSOC);
 foreach ($rows as $row) {
     // Show only available listings.    
     if (empty($row["endDate"])) {
-        $userId = $row["userId"];
+        $user_id = $row["userId"];
         $username = $row["username"];
         $user_rating = (empty($row["userRating"]) ? 0 : $row["userRating"]);
         $city = $row["city"];
