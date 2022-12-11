@@ -1,4 +1,5 @@
 <h1>Create a new account:</h1>
+<body>
 <form action = "register.php" method= "post">
     Username: <input type="text" name="username" required><br/>
     Password: <input type="password" name="password" required><br/>
