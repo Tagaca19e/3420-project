@@ -19,10 +19,17 @@ if (isset($_POST["user_id"])) {
 require_once("../snippets/get-pdo-connection.php");
 
 $db = get_pdo_connection();
-$sql = "SELECT * 
+
+// Check for admin prividledges. Enables edit for all listings when user is
+// in session admins list.
+if (in_array($_SESSION["username"], $_SESSION["admins"])) {
+    $sql = "SELECT * FROM UserListingsInfo";
+} else {
+    $sql = "SELECT * 
         FROM UserListingsInfo 
         WHERE userId = $user_logged_in_id
         AND endDate IS NULL";
+}
 
 $query = $db->prepare($sql);
 $query->execute();
@@ -42,8 +49,10 @@ if (empty($rows)) {
             $state = $row["state"];
             $condition = $row["bookCondition"];
             $price = $row["price"];
+            $quantity = $row["quantity"];
             $description = $row["description"];
             $listing_id = $row["listingId"];
+            $photo_source = $row["photoSource"];
             
             // Render each listing with item-listing template.
             include "../snippets/item-listing-edit.php";

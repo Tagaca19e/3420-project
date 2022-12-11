@@ -2,7 +2,7 @@
 session_start();
 
 // Check for logged in user.
-if (!isset($_SESSION["user_id"])) {
+if (!isset($_SESSION["user_id"]) && !isset($_SESSION["username"])) {
     return;
 }
 
@@ -27,7 +27,9 @@ foreach ($rows as $row) {
         $state = $row["state"];
         $condition = $row["bookCondition"];
         $price = $row["price"];
+        $quantity = $row["quantity"];
         $description = $row["description"];
+        $photo_source = $row["photoSource"];
 
         // Render each listing with item-listing template.
         include "../snippets/item-listing.php";
