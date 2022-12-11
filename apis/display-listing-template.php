@@ -4,9 +4,9 @@ include "../snippets/data-encoder.php";
 ?>
 <div class="list-item__listing list-item__listing--create">
     <div class="list-item__listing-info">
-        <button class="listing-create__image-upload">Upload Image</button>
+        <button class="listing-form__image-upload">Upload Image</button>
         <p></p>
-        <form class="listing-create">
+        <form class="listing-create listing-form">
             <input type="hidden" name="user_id" value="<?= encode($_SESSION["user_id"]) ?>">
             <input type="hidden" name="photo_source" value="">
             <input type="hidden" name="start_date" value="<?= date("Y-m-d") ?>">

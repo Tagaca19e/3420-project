@@ -28,13 +28,18 @@ CREATE PROCEDURE updateListingsInfo (
   state varchar(120),
   book_condition varchar(120),
   price float,
-  description varchar(120)
+  quantity int,
+  description varchar(120),
+  photo_source varchar(200),
+  end_date date
 )
 BEGIN
   UPDATE Listing
   SET city = city,
       state = state,
-      description = description
+      description = description,
+      quantity = quantity,
+      endDate = end_date
   WHERE listingId = listing_id 
   AND userId = user_id;
 
@@ -43,11 +48,56 @@ BEGIN
       price = price
   WHERE listingId = listing_id
   AND userId = user_id;
+
+  UPDATE Photos
+  SET photoSource = photo_source
+  WHERE listingId = listing_id
+  AND userId = user_id;
 END
 //
 
 DELIMITER ;
 
+
+-- GLOBAL UPDATE FOR ADMINS
+DELIMITER //
+CREATE PROCEDURE adminUpdateListingsInfo (
+  listing_id int,
+  city varchar(120),
+  state varchar(120),
+  book_condition varchar(120),
+  price float,
+  quantity int,
+  description varchar(120),
+  photo_source varchar(200),
+  end_date date
+)
+BEGIN
+  UPDATE Listing
+  SET city = city,
+      state = state,
+      description = description,
+      quantity = quantity,
+      endDate = end_date
+  WHERE listingId = listing_id;
+
+  UPDATE Book
+  SET bookCondition = book_condition,
+      price = price
+  WHERE listingId = listing_id;
+
+  UPDATE Photos
+  SET photoSource = photo_source
+  WHERE listingId = listing_id;
+END
+//
+
+DELIMITER ;
+
+DELIMITER ;
+-- TODO(etagaca): Work on global update for admins.
+
+-- DELETE LISTINGS GLOBAL
 DELIMITER //
 CREATE PROCEDURE deleteListingsInfo (
   listing_id int
@@ -66,6 +116,9 @@ END
 //
 
 DELIMITER ;
+
+-- CALL updateListingsInfo(10, 10, 'New York', 'New York', 'New', 10.99, 1, 'This is a book', 'https://res.cloudinary.com/deb6r2y8g/image/upload/v1670567692/44310989._UY500_SS500__cxo78c.jpg', '');
+-- CALL adminUpdateListingsInfo(10, 'New York', 'New York', 'New', 10.99, 1, 'This is about TypeScript!', 'https://res.cloudinary.com/deb6r2y8g/image/upload/v1670567692/44310989._UY500_SS500__cxo78c.jpg', NULL);
 
 -- ===========================================================================
 
@@ -169,6 +222,7 @@ SELECT u.username,
        l.state,
        l.startDate,
        l.endDate,
+       l.quantity,
        b.bookCondition,
        b.price,
        p.photoSource

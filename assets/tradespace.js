@@ -137,11 +137,11 @@ function imageUpload() {
           ? "No file selected." 
           : `File uploaded:\n\n${fileUrls}`;
       console.log(success);
-      $('.listing-create__image-upload').next()
+      $('.listing-form__image-upload').next()
         .text(`${success.substring(0, 40)}....`);
 
       // Store cdn link into form.
-      $('.listing-create > input[name="photo_source"]').val(fileUrls);
+      $('.listing-form > input[name="photo_source"]').val(fileUrls);
     },
     error => {
       alert(error);
@@ -198,6 +198,7 @@ function updateListing(updateData) {
       url: '../apis/update-listing.php',
       data: updateData,
       success: function (data) {
+        console.log(data);
         resolve();
       },
       error: function (xhr, status, error) {
@@ -260,8 +261,10 @@ function logout() {
 listMessagedUsers(LOGGEDIN)
   .then(function () {
     // Load most recent user messages.
-    var init = $('.list-item__user').attr('data-key')[0];
-    displayUserMessage(LOGGEDIN, init);
+    var init = $('.list-item__user').attr('data-key') || false;
+    if (init) {
+      displayUserMessage(LOGGEDIN, init[0]);
+    }
 
     // Load all listings available.
     displayListings();
@@ -333,12 +336,12 @@ $(document).ready(function () {
    */
 
   // Upload image.
-  $('.tradespace__listing-wrapper').on('click', '.listing-create__image-upload', 
+  $('.tradespace__listing-wrapper').on('click', '.listing-form__image-upload', 
     function () {
       imageUpload();
   });
 
-  $('.tradespace__listing-wrapper').on('submit', 'form[class="listing-create"]', 
+  $('.tradespace__listing-wrapper').on('submit', '.listing-create', 
     function (event) {
       event.preventDefault();
       // Get data from create listing form.
@@ -355,16 +358,25 @@ $(document).ready(function () {
   });
 
   // Edit info about listing.
-  $('.tradespace__listing-wrapper').on('click', '.list-item__listing > button',
-    function () {
+  $('.tradespace__listing-wrapper').on('click', 
+  '.list-item__listing-info > button', function () {
       var listingId = $(this).attr('data-key');
-      
+
       $(`.listing--${listingId}`).addClass('hidden');
       $(`.listing-edit--${listingId}`).addClass('visible');
   });
 
+  // Cancel edit listing.
+  $('.tradespace__listing-wrapper').on('click', '.listing-edit__cancel', 
+    function () {
+      var listingId = $(this).attr('data-key');
+
+      $(`.listing--${listingId}`).removeClass('hidden');
+      $(`.listing-edit--${listingId}`).removeClass('visible');
+  });
+
   // Submit listing updates.
-  $('.tradespace__listing-wrapper').on('submit', 'form[class="listing-edit"]', 
+  $('.tradespace__listing-wrapper').on('submit', '.listing-edit', 
     function (event) {
       event.preventDefault();
       // Get data from edit form.
@@ -375,6 +387,7 @@ $(document).ready(function () {
       formData.forEach((value, key) => data[key] = value);
 
       data.user_id = LOGGEDIN;
+      console.log('udpate data', data);
       updateListing(data).then(function () {
         displayUserListings(LOGGEDIN);
       });

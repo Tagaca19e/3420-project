@@ -1,7 +1,8 @@
 <?php
 echo "<div class='list-item__listing'>
           <img 
-              src='https://res.cloudinary.com/deb6r2y8g/image/upload/v1670567692/44310989._UY500_SS500__cxo78c.jpg'
+              class='list-item__image'
+              src='$photo_source'
           >
           <p 
               class='list-item__listing-user'
@@ -9,6 +10,7 @@ echo "<div class='list-item__listing'>
           >
           $username ($user_rating)</p>
           <p>$city, $state</p>
+          <p>Qty: $quantity</p>
           <p>$condition: $price</p>
           <p>$description</p>
       </div>";

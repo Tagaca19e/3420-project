@@ -76,6 +76,13 @@ textarea {
   width: 540px;
 }
 
+.list-item__image {
+  border-radius: 10px;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
 .list-item__listing-info.hidden {
   display: none;
 }

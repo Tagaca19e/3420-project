@@ -3,6 +3,7 @@ session_start();
 require_once("../snippets/get-mysqli-connection.php");
 require_once("../snippets/data-encoder.php");
 require_once("../snippets/get-user-rating.php");
+require_once("../config/user-admins.php");
 
 // Validate login credentials.
 if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] == false

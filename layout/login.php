@@ -25,7 +25,7 @@ if (isset($_POST["Login"])) {
         $query->bindParam(1, $login_username, PDO::PARAM_STR);
         $query->execute();
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
-        
+
         if (count($results) > 0){
             $user_id = $results[0]["userId"];
             $hash = $results[0]["Password"];
@@ -94,5 +94,6 @@ if (isset($_POST["Login"])) {
             unset($_SESSION["login_error"]);
         }
         ?>
+        <p>Don't have an account? <a href="./register.php">register</a></p>
     </body>
 </html>
