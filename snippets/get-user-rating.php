@@ -13,6 +13,8 @@ function get_user_rating($user_id) {
 
     $rows = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    echo $rows[0]["userRating"];
+    $result = $rows[0]["userRating"];
+    $rating = ($result) ? $result : 0;
+    echo "Rating: " . $rating;
 }
 ?>

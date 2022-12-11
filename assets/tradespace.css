@@ -1,3 +1,8 @@
+body,
+html {
+  height: 100%;
+}
+
 body {
   color: #444;
   font-size: 18px;
@@ -18,9 +23,15 @@ h1 {
   text-align: center;
 }
 
+textarea {
+  width: 100%;
+  height: 200px;
+}
+
 .nav {
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 .nav__primary-items {
@@ -30,7 +41,8 @@ h1 {
 
 .nav__item {
   min-height: 52px;
-  min-width: 80px;
+  min-width: 100px;
+  text-align: center;
 }
 
 .list-item__listing, 
@@ -39,10 +51,8 @@ h1 {
   background: #ffffff;
 }
 
-
-.tradespace__message-wrapper, 
 .tradespace__listing-wrapper {
-  height: 100%;
+  height: 90vh;
   overflow: scroll;
 }
 
@@ -58,8 +68,12 @@ h1 {
   height: fit-content;
   margin: 10px 15px;
   margin-bottom: 15px;
-  max-width: 540px;
+  width: 540px;
   padding: 10px;
+}
+
+.list-item__listing--create {
+  width: 540px;
 }
 
 .list-item__listing-info.hidden {
@@ -86,7 +100,6 @@ h1 {
 .tradespace__wrapper {
   background: #f3f2ef;
   display: flex;
-  height: 100%;
   justify-content: center;
   width: 100%;
 }

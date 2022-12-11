@@ -8,6 +8,7 @@ if (isset($_POST["logged_in"]) && isset($_POST["to_display"])) {
     // Check for user logged in validity.
     if ($user_logged_in_id != $_SESSION["user_id"]) {
         echo "Error invalid request.";
+        return;
     }
 
     $user_id_to_display = $_POST["to_display"];
