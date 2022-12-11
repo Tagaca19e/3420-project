@@ -20,6 +20,7 @@ $rows = $query->fetchAll(PDO::FETCH_ASSOC);
 foreach ($rows as $row) {
     // Show only available listings.    
     if (empty($row["endDate"])) {
+        $photosource = $row["photoSource"];
         $user_id = $row["userId"];
         $username = $row["username"];
         $user_rating = (empty($row["userRating"]) ? 0 : $row["userRating"]);
