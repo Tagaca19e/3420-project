@@ -16,7 +16,7 @@ h2,
 h3,
 h4 {
   font-weight: 400;
-  line-height: 1.2
+  line-height: 1.2;
 }
 
 h1 {
@@ -32,6 +32,7 @@ textarea {
   display: flex;
   justify-content: center;
   position: relative;
+  background: #f1f3f2;
 }
 
 .nav__primary-items {
@@ -41,8 +42,14 @@ textarea {
 
 .nav__item {
   min-height: 52px;
-  min-width: 100px;
+  min-width: 150px;
   text-align: center;
+  font-size: 30px;
+  color: black;
+}
+
+.list-item__report {
+  background: #ffffff;
 }
 
 .list-item__listing, 
@@ -51,11 +58,16 @@ textarea {
   background: #ffffff;
 }
 
+.tradespace__report-wrapper {
+  height: 90vh;
+}
+
 .tradespace__listing-wrapper {
   height: 90vh;
   overflow: scroll;
 }
 
+.list-item__report,
 .list-item__listing,
 .tradespace__message-wrapper, 
 .tradespace__messages, 
@@ -63,7 +75,7 @@ textarea {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 }
-
+.list-item__report,
 .list-item__listing {
   height: fit-content;
   margin: 10px 15px;
@@ -98,7 +110,7 @@ textarea {
 }
 
 .tradespace__wrapper {
-  background: #f3f2ef;
+  background: #d7c9bc;
   display: flex;
   justify-content: center;
   width: 100%;

@@ -98,6 +98,25 @@ function displayListings() {
     });
   });
 }
+/**
+ * Displays account data
+ */
+function displayAccountReport() {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: "POST",
+      url: '../apis/display-account-report.php',
+      data: {},
+      success: function (data) {
+        $('.tradespace__report-wrapper').html(data);
+        resolve();
+      },
+      error: function (xhr, status, error) {
+        reject(xhr);
+      }
+    });
+  });
+}
 
 /**
  * Displays all listings available that are listed by user.
@@ -302,6 +321,11 @@ $(document).ready(function () {
    * Nav bar
    * --------------------------------------------------------------------------
    */
+  
+  // View account data
+  $('.nav__item[data-key="report"]').click(function () {
+    displayAccountReport();
+  });
 
   // Create listing.
   $('.nav__item[data-key="create"]').click(function () {
