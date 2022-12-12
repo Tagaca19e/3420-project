@@ -44,7 +44,7 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] == false
                 <div class="tradespace__user-profile">
                     <h3><?= $_SESSION["username"] ?></h3>
                     <h4><?= get_user_rating($_SESSION["user_id"]) ?></h4>
-
+                    <a href = "account.php">account</a>
                     <!--
                     NOTE: Not able to implemet due to lack of time :(
                     <a class="user-profile__pswd">change password</a>
