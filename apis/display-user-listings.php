@@ -20,18 +20,20 @@ require_once("../snippets/get-pdo-connection.php");
 
 $db = get_pdo_connection();
 
-// Check for admin prividledges. Enables edit for all listings when user is
+// Check for admin privileges. Enables edit for all listings when user is
 // in session admins list.
 if (in_array($_SESSION["username"], $_SESSION["admins"])) {
     $sql = "SELECT * FROM UserListingsInfo";
 } else {
     $sql = "SELECT * 
         FROM UserListingsInfo 
-        WHERE userId = $user_logged_in_id
+        WHERE userId = ?
         AND endDate IS NULL";
 }
 
 $query = $db->prepare($sql);
+$query->bindParam(1, $user_logged_in_id, PDO::PARAM_INT);
+
 $query->execute();
 
 $rows = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -39,7 +41,9 @@ $rows = $query->fetchAll(PDO::FETCH_ASSOC);
 if (empty($rows)) {
     echo "You have no listings at the moment :(";
 } else {
-    foreach ($rows as $row) {
+    $idx = count($rows);
+    while ($idx) {
+    $row = $rows[--$idx];
         // Show only user listings that are active.    
         if (empty($row["endDate"])) {
             $user_id = $row["userId"];

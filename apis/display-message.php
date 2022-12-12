@@ -21,7 +21,9 @@ require_once("../snippets/get-mysqli-connection.php");
 $db = get_mysqli_connection();
 
 // Get all messages that user has sent.
-$query = $db->prepare("SELECT * FROM Messages WHERE senderID = $user_logged_in_id");
+$query = $db->prepare("SELECT * FROM Messages WHERE senderID = ? ");
+$query->bind_param("i", $user_logged_in_id);
+
 $query->execute();
 
 $result = $query->get_result();
