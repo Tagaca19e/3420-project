@@ -8,27 +8,25 @@ if (isset($_SESSION["username"])
     return;
 }
 
-require_once("../snippets/get-mysqli-connection.php");
+require_once("../snippets/get-pdo-connection.php");
 require_once("../snippets/table-maker.php");
 
-
 function query_analytics($query_str) {
-    $db = get_mysqli_connection();
+    $db = get_pdo_connection();
+    $sql = $query_str;
 
-    $query = $db->prepare($query_str);
+    $query = $db->prepare($sql);
     $query->execute();
 
-    $result = $query->get_result();
-    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    $rows = $query->fetchAll(PDO::FETCH_ASSOC);
     return $rows;
 }
 
 $rows = query_analytics("SELECT city, COUNT(listingId) AS listings 
                          FROM Listing 
                          GROUP BY city");
-
-$listings_by_city = "";
 $by_city = $rows;
+$listings_by_city = "";
 foreach ($rows as $row) {
     $listings_by_city .=  "{\"y\": " . $row["listings"] . ", \"label\": \"" . $row["city"] . "\"}|";
 }
@@ -36,14 +34,19 @@ foreach ($rows as $row) {
 $rows = query_analytics("SELECT city, COUNT(listingId) AS listings 
                          FROM Listing 
                          GROUP BY state");
-$$listings_by_state = "";
 $by_state = $rows;
-
+$$listings_by_state = "";
 foreach ($rows as $row) {
     $listings_by_state .=  "{\"y\": " . $row["listings"] . ", \"label\": \"" . $row["state"] . "\"}|";
 }
-?>
 
+$rows = query_analytics("SELECT ROUND(SUM(price), 2) AS totalSales 
+                         FROM UserListingsInfo
+                         WHERE endDate IS NOT NULL");
+
+$generated_sales = "<h3>TRANSACTIONS: $" . $rows[0]["totalSales"] . "</h3>";
+echo $generated_sales;
+?>
 <div>
     <div 
         id="analytics__pie-chart--city" 
@@ -61,6 +64,7 @@ foreach ($rows as $row) {
 
 <div id="content-report" style="visibility: hidden;">
     <?php
+    echo $generated_sales;
     echo make_table($by_city);
     echo make_table($by_state);
     ?>

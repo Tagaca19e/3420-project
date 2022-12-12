@@ -8,7 +8,7 @@ echo "<div class='list-item__listing'>
               class='list-item__listing-user'
               data-key='$user_id'  
           >
-          $username ($user_rating)</p>
+          <a style='color: #4169e1; text-decoration: underline;'>$username</a> ($user_rating)</p>
           <p>$city, $state</p>
           <p>Qty: $quantity</p>
           <p>$condition: $price</p>
