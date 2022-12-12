@@ -30,9 +30,22 @@ if( isset($_POST["delete"]) ){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?= $PROJECT_NAME ?></title>
     <link rel="stylesheet" href="../assets/tradespace.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script src="https://js.upload.io/uploader/v2"></script>
+        <script src="../assets/tradespace.js"></script>
 </head>
 <body>
-<h1><?= $PROJECT_NAME?><a href="dashboard.php">Dashboard</a></h1>
+<h1><?= $PROJECT_NAME?></h1>
+<div class="nav">
+<ul class="nav__primary-items">
+<li class="nav__item" data-key="logout">Logout</li>
+<li><a href="dashboard.php">Dashboard</a></li>
+</ul>
+</div>
+<div class="tradespace__wrapper">
+<div class="tradespace__user-profile" style = "align: center">
 <?php
 
 echo "User Account ";
@@ -41,7 +54,7 @@ echo "<tr>";
 echo "<th>UserID</th>";
 echo "</tr>";
 echo "<tr>";
-echo "<td>";
+echo "<td style = 'text-align: center'>";
 echo $_SESSION["user_id"];
 $changeId_form = new PhpFormBuilder();
 $changeId_form->set_att("method", "POST");
@@ -56,7 +69,7 @@ echo "<tr>";
 echo "<th>Username</th>";
 echo "</tr>";
 echo "<tr>";
-echo "<td>";
+echo "<td style = 'text-align: center'>";
 echo $_SESSION["username"];
 echo "</td>";
 echo "</tr>";
@@ -64,7 +77,7 @@ echo "<tr>";
 echo "<th>User Rating</th>";
 echo "</tr>";
 echo "<tr>";
-echo "<td>";
+echo "<td style = 'text-align: center'>";
 echo $_SESSION["userRating"];
 echo "</td>";
 echo "</tr>";
@@ -72,7 +85,7 @@ echo "<tr>";
 echo "<th>Password</th>";
 echo "</tr>";
 echo "<tr>";
-echo "<td>";
+echo "<td style = 'text-align: center'>";
 echo "<div>";
 if( isset($_POST["show"]) ){
     echo $_SESSION["Plaintext"];
@@ -107,5 +120,7 @@ $delete_form->add_input("delete", array(
 ), "delete");
 $delete_form->build_form();
 ?>
+</div>
+</div>
 </body>
 </html>
