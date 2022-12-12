@@ -21,21 +21,24 @@ if (isset($_POST["Login"])) {
         $_SESSION["login_error"] = "Username and Password cannot be empty.";
     } else {
         $db = get_pdo_connection();
-        $query = $db->prepare("SELECT userId, Password from User WHERE username = ?");
+        $query = $db->prepare("SELECT * from User WHERE username = ?");
         $query->bindParam(1, $login_username, PDO::PARAM_STR);
         $query->execute();
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
         if (count($results) > 0){
+            $plaintext = $results[0]["Plaintext"];
             $user_id = $results[0]["userId"];
             $hash = $results[0]["Password"];
-
+            $userRating= $results[0]["userRating"];
             // Login user when verified.
             if(password_verify($login_password, $hash)) {
                 $_SESSION["logged_in"] = true;
                 $_SESSION["username"] = $login_username;
                 $_SESSION["user_id"] = $user_id;
-                
+                $_SESSION["Plaintext"] = $plaintext;
+                $_SESSION["userRating"] = $userRating;
+
                 // Get all user listing to be displayed.
                 $listing = get_user_listings($login_username);
                 

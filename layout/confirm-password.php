@@ -1,6 +1,8 @@
 <?php
+session_start();
 require_once("../snippets/get-pdo-connection.php");
 require_once("../assets/FormBuilder.php");
+require_once("../snippets/table-maker.php");
 
 if (empty($_SESSION["logged_in"])) {
     header("Location: login.php");
@@ -11,7 +13,7 @@ if ($_SESSION["logged_in"] == false) {
 }
 if (isset($_POST["Confirmed"])){
 
-    $password_username = $_SESSION["user_account"]["username"];
+    $password_username = $_SESSION["username"];
     $password_password = $_POST["change_password"];
 
     if (strlen($password_username) == 0 || strlen($password_password) == 0){
@@ -29,7 +31,7 @@ if (isset($_POST["Confirmed"])){
             
             if(password_verify($password_password, $hash)){
                 $_SESSION["password_confirmed"] = true;
-                header("Location: changePassword.php");
+                header("Location: change-password.php");
             }
             else{
                 $_SESSION["login_error"] = "Invalid password";
@@ -47,10 +49,10 @@ if (isset($_POST["Confirmed"])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?= $PROJECT_NAME ?></title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/tradespace.css">
 </head>
 <body>
-<h1><?= $PROJECT_NAME?><a href="logout.php">Log out</a></h1>
+<h1><?= $PROJECT_NAME?><a href="../apis/logout.php">Log out</a></h1>
 
 <?php
 
