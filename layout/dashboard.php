@@ -19,13 +19,19 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] == false
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title><?= $PROJECT_NAME ?></title>
         <link rel="stylesheet" href="../assets/tradespace.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
         <script src="https://js.upload.io/uploader/v2"></script>
     </head>
     <body data-key="<?= encode($_SESSION["user_id"]) ?>">
         <div class="nav">
             <ul class="nav__primary-items">
-                <li class="nav__item">Account</li>
+                <?php
+                if (in_array($_SESSION["username"], $_SESSION["admins"])) {
+                    echo "<li class='nav__item' data-key='analytics'>Analytics</li>";
+                }
+                ?>
                 <li class="nav__item" data-key="create">Create</li>
                 <li class="nav__item" data-key="all-listings">Explore</li>
                 <li class="nav__item" data-key="my-listings">My Listings</li>
@@ -33,11 +39,19 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] == false
             </ul>
         </div>
 
-        <!-- TODO(etagaca): Change names for classes. -->
         <div class="tradespace__wrapper">
-            <div class="tradespace__user-profile">
-                <h3><?= $_SESSION["username"] ?></h3>
-                <h4><?= get_user_rating($_SESSION["user_id"]) ?></h4>
+            <div>
+                <div class="tradespace__user-profile">
+                    <h3><?= $_SESSION["username"] ?></h3>
+                    <h4><?= get_user_rating($_SESSION["user_id"]) ?></h4>
+
+                    <!--
+                    NOTE: Not able to implemet due to lack of time :(
+                    <a class="user-profile__pswd">change password</a>
+                    <input type="password" name="new_password">
+                    <p></p>
+                    -->
+                </div>
             </div>
 
             <!-- List of listings -->
