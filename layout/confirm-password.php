@@ -1,5 +1,6 @@
 <?php
-require_once("config.php");
+require_once("../snippets/get-pdo-connection.php");
+require_once("../assets/FormBuilder.php");
 
 if (empty($_SESSION["logged_in"])) {
     header("Location: login.php");

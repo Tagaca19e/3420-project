@@ -8,6 +8,24 @@ Create admin dashboard
   - Report about avg transactions
 
 Enable report generation
+  - Group by city or state listings
+    - select city, count(listingId) as listings from Listing group by city;
+    - select state, count(listingId) as listings from Listing group by state;
+
+  - Get current user count
+    - Active
+      - select count(userId) from User;
+    - Registered
+      SELECT AUTO_INCREMENT - 1 as listingId
+      FROM information_schema.TABLES
+      WHERE TABLE_SCHEMA = "tradespace"
+      AND TABLE_NAME = "User";
+
+    - Overall transaction amount generated amount and plot points
+      select endDate, sum(price) from UserListingsInfo GROUP BY endDate
+      HAVING endDate IS NOT NULL;
+
+      SELECT SUM(price) as totalSales FROM UserListingsInfo WHERE endDate IS NOT NULL;
 
 User settings
   - Change password

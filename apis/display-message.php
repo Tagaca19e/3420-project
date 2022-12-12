@@ -20,9 +20,6 @@ if (isset($_POST["logged_in"]) && isset($_POST["to_display"])) {
 require_once("../snippets/get-mysqli-connection.php");
 $db = get_mysqli_connection();
 
-// TODO(etagaca): Connect logged in session from Danny's logged in feature.
-// Test for who is currently logged in.
-
 // Get all messages that user has sent.
 $query = $db->prepare("SELECT * FROM Messages WHERE senderID = $user_logged_in_id");
 $query->execute();
@@ -82,10 +79,8 @@ foreach ($user_messages as $idx => $receiver_messages) {
 include '../snippets/get-username-by-id.php';
 
 // Display where the message is to/from.
-echo "<p 
-        class='tradespace__message-header'
-      >To. " 
-      . get_username_by_id($user_id_to_display) . 
+echo "<p class='tradespace__message-header'>
+        To. " . get_username_by_id($user_id_to_display) . 
       "</p>";
 
 function display_message($user_messages) {
