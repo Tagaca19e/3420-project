@@ -17,7 +17,10 @@ $query->execute();
 
 $rows = $query->fetchAll(PDO::FETCH_ASSOC);
 
-foreach ($rows as $row) {
+// Display latest listings.
+$idx = count($rows);
+while ($idx) {
+    $row = $rows[--$idx];
     // Show only available listings.    
     if (empty($row["endDate"])) {
         $user_id = $row["userId"];
