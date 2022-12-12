@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once("../snippets/get-pdo-connection.php");
 require_once("../snippets/get-mysqli-connection.php");
 require_once("../snippets/data-encoder.php");
 require_once("../snippets/get-user-rating.php");
@@ -36,6 +37,14 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] == false
                 <li class="nav__item" data-key="all-listings">Explore</li>
                 <li class="nav__item" data-key="my-listings">My Listings</li>
                 <li class="nav__item" data-key="logout">Logout</li>
+                <?php
+                $db = get_pdo_connection();
+                $query = $db->prepare("SELECT * from UserCount");
+                $query->execute();
+                $results = $query->fetchAll(PDO::FETCH_ASSOC);
+                echo "<li>Users: " . $results[0]["users"] . "</li>";
+                
+                ?>
             </ul>
         </div>
 
