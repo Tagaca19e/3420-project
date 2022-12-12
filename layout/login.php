@@ -68,7 +68,14 @@ if (isset($_POST["Login"])) {
         <link rel="stylesheet" href="../assets/tradespace.css">
     </head>
     <body>
-        <h1> <?= $PROJECT_NAME . " login page"?> </h1> 
+        <div class="nav">
+            <ul class="nav__primary-items">
+            <li><h1><?= $PROJECT_NAME . " login page "?></h1></li>
+            </ul>
+        </div>
+        <div class="tradespace__wrapper">
+        <div class="tradespace__user-profile">
+            <div style = "text-align: center">
         <?php
         require_once("../assets/FormBuilder.php");
         require_once("../snippets/table-maker.php");
@@ -97,6 +104,9 @@ if (isset($_POST["Login"])) {
             unset($_SESSION["login_error"]);
         }
         ?>
-        <p>Don't have an account? <a href="./register.php">register</a></p>
+        </div>
+        </div>
+    </div>
+        <p style = "text-align: center">Don't have an account? <a href="register.php">Register</a></p>
     </body>
 </html>
