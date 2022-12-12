@@ -1,5 +1,8 @@
 <?php
-require_once("config.php");
+session_start();
+require_once("../snippets/get-pdo-connection.php");
+require_once("../assets/FormBuilder.php");
+require_once("../snippets/table-maker.php");
 
 if (empty($_SESSION["logged_in"])) {
     header("Location: login.php");
@@ -7,8 +10,18 @@ if (empty($_SESSION["logged_in"])) {
 if ($_SESSION["logged_in"] == false) {
     header("Location: login.php");
 }
-
-
+if( isset($_POST["changeId"]) ){
+    unset($_POST["changeId"]);
+    header("Location: change-Id.php");
+}
+if( isset($_POST["changePassword"]) ){
+    unset($_POST["changePassword"]);
+    header("Location: change-password.php");
+}
+if( isset($_POST["delete"]) ){
+    unset($_POST["delete"]);
+    header("Location: delete-account.php");
+}
 ?>
 
 <html>
@@ -16,10 +29,10 @@ if ($_SESSION["logged_in"] == false) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?= $PROJECT_NAME ?></title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/tradespace.css">
 </head>
 <body>
-<h1><?= $PROJECT_NAME?><a href="logout.php">Log out</a></h1>
+<h1><?= $PROJECT_NAME?><a href="../apis/logout.php">Log out</a></h1>
 <?php
 
 echo "User Account ";
@@ -29,7 +42,14 @@ echo "<th>UserID</th>";
 echo "</tr>";
 echo "<tr>";
 echo "<td>";
-echo $_SESSION["user_account"]["userId"];
+echo $_SESSION["user_id"];
+$changeId_form = new PhpFormBuilder();
+$changeId_form->set_att("method", "POST");
+$changeId_form->add_input("changeId", array(
+    "type" => "submit",
+    "value" => "Change UserID"
+), "changeId");
+$changeId_form->build_form();
 echo "</td>";
 echo "</tr>";
 echo "<tr>";
@@ -37,7 +57,7 @@ echo "<th>Username</th>";
 echo "</tr>";
 echo "<tr>";
 echo "<td>";
-echo $_SESSION["user_account"]["username"];
+echo $_SESSION["username"];
 echo "</td>";
 echo "</tr>";
 echo "<tr>";
@@ -45,7 +65,7 @@ echo "<th>User Rating</th>";
 echo "</tr>";
 echo "<tr>";
 echo "<td>";
-echo $_SESSION["user_account"]["userRating"];
+echo $_SESSION["userRating"];
 echo "</td>";
 echo "</tr>";
 echo "<tr>";
@@ -55,7 +75,7 @@ echo "<tr>";
 echo "<td>";
 echo "<div>";
 if( isset($_POST["show"]) ){
-    echo $_SESSION["user_account"]["Plaintext"];
+    echo $_SESSION["Plaintext"];
     unset($_POST["show"]);
 }
 else {
@@ -76,10 +96,6 @@ $changePassword_form->add_input("changePassword", array(
     "value" => "Change Password"
 ), "changePassword");
 $changePassword_form->build_form();
-if( isset($_POST["changePassword"]) ){
-    header("Location: changePassword.php");
-    unset($_POST["changePassword"]);
-}
 echo "</td>";
 echo "</tr>";
 echo "</table>";
