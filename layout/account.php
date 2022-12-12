@@ -32,7 +32,7 @@ if( isset($_POST["delete"]) ){
     <link rel="stylesheet" href="../assets/tradespace.css">
 </head>
 <body>
-<h1><?= $PROJECT_NAME?><a href="../apis/logout.php">Log out</a></h1>
+<h1><?= $PROJECT_NAME?><a href="dashboard.php">Dashboard</a></h1>
 <?php
 
 echo "User Account ";
