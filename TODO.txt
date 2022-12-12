@@ -1,5 +1,0 @@
-Security
-  - API SESSIONs
-User settings
-  - Change password
-  - delete account
