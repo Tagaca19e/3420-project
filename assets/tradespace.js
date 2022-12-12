@@ -340,31 +340,30 @@ function printReport() {
   var pdf = new jsPDF('p', 'pt', 'letter');
   source = $('#content-report')[0];
   specialElementHandlers = {
-      // element with id of "bypass" - jQuery style selector
-      '#bypassme': function (element, renderer) {
-          // true = "handled elsewhere, bypass text extraction"
-          return true
-      }
+    // Element with id of "bypass" - jQuery style selector.
+    '#bypassme': function (element, renderer) {
+      return true
+    }
   };
 
   margins = {
-      top: 80,
-      bottom: 60,
-      left: 40,
-      width: 522
+    top: 80,
+    bottom: 60,
+    left: 40,
+    width: 522
   };
 
   pdf.fromHTML(
-      source, // HTML string or DOM elem ref.
-      margins.left, 
-      margins.top, { 
-          'width': margins.width,
-          'elementHandlers': specialElementHandlers
-      },
+    source,   // HTML string or DOM elem ref.
+    margins.left, 
+    margins.top, { 
+      'width': margins.width,
+      'elementHandlers': specialElementHandlers
+    },
 
-      function (dispose) {
-          pdf.save('tradespace-report.pdf');
-      }, margins
+    function (dispose) {
+      pdf.save('tradespace-report.pdf');
+    }, margins
   );
 }
 
@@ -380,6 +379,7 @@ listMessagedUsers(LOGGEDIN)
     // Load most recent user messages.
     var init = $('.list-item__user').attr('data-key') || false;
     if (init) {
+      console.log(LOGGEDIN);
       displayUserMessage(LOGGEDIN, init[0]);
     }
 
